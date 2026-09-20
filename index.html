@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第七观测站 · 档案001</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #d4c5a9;
+  }
+  .container {
+    max-width: 600px;
+    width: 90%;
+    background: url('paper.jpg') center/cover;
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    position: relative;
+  }
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  h1 {
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: #8b7355;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: #6b5b45;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  .log {
+    font-size: 15px;
+    line-height: 2;
+    color: #c4b59a;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+  }
+  .log p {
+    margin: 0 0 8px 0;
+  }
+  .date {
+    color: #8b7355;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .signature {
+    text-align: right;
+    font-size: 13px;
+    color: #8b7355;
+    margin-top: 20px;
+  }
+  .input-area {
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+    border-top: 1px solid #3a3025;
+    padding-top: 24px;
+  }
+  .input-area label {
+    display: block;
+    font-size: 13px;
+    color: #8b7355;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid #3a3025;
+    color: #d4c5a9;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    letter-spacing: 4px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  input[type="text"]:focus {
+    border-color: #8b7355;
+  }
+  button {
+    margin-top: 16px;
+    padding: 12px 32px;
+    background: transparent;
+    border: 1px solid #8b7355;
+    color: #8b7355;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+  button:hover {
+    background: #8b7355;
+    color: #1a1a1a;
+  }
+  .error {
+    color: #8b3a3a;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+    letter-spacing: 2px;
+  }
+  .shake {
+    animation: shake 0.4s;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+  .hidden {
+    display: none;
+  }
+  .unlocked {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .unlocked h2 {
+    color: #8b7355;
+    font-size: 16px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+  }
+  .unlocked p {
+    font-size: 14px;
+    color: #c4b59a;
+    line-height: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="main">
+  <h1>第七观测站</h1>
+  <div class="subtitle">档 案 001 · 观 测 日 志 （ 残 页 ）</div>
+
+  <div class="log">
+    <div class="date">1978年7月10日</div>
+    <p>今天天线又收到那个频率了。</p>
+    <p>89.7。</p>
+    <p>和上个月一样。</p>
+    <div class="signature">—— 气象员 周德明</div>
+  </div>
+
+  <div class="input-area">
+    <label>输入频率</label>
+    <input type="text" id="answer" placeholder="___" autocomplete="off">
+    <button onclick="checkAnswer()">提 交 记 录</button>
+    <div class="error" id="error">频率错误，请重新记录。</div>
+  </div>
+</div>
+
+<div class="container hidden" id="unlocked">
+  <div class="unlocked">
+    <h2>档案 002 已解锁</h2>
+    <p>建站合影（1970）</p>
+    <p style="font-size:12px;color:#6b5b45;margin-top:20px;">刷新页面继续</p>
+  </div>
+</div>
+
+<script>
+function checkAnswer() {
+  var input = document.getElementById('answer');
+  var val = input.value.trim();
+  var error = document.getElementById('error');
+  var main = document.getElementById('main');
+  var unlocked = document.getElementById('unlocked');
+
+  if (val === '89.7' || val === '89.7频率' || val === '89.7hz') {
+    // 正确
+    main.classList.add('hidden');
+    unlocked.classList.remove('hidden');
+    // 播放解锁音效
+    // new Audio('unlock.mp3').play();
+    // 记录进度到localStorage
+    localStorage.setItem('station_progress', '002');
+  } else {
+    // 错误
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() {
+      input.classList.remove('shake');
+    }, 400);
+    // 播放错误音效
+    // new Audio('error.mp3').play();
+  }
+}
+
+// 回车提交
+document.getElementById('answer').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    checkAnswer();
+  }
+});
+</script>
+
+</body>
+</html>
