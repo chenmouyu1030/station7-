@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第七观测站 · 档案002</title>
+<style>
+  body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
+  .container { max-width: 600px; width: 90%; background: #2a2a2a; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; text-align: center; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 20px; }
+  .photo-area { position: relative; width: 100%; height: 250px; background: #333; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 20px; border: 1px dashed #555; margin-bottom: 30px; }
+  .person { width: 30px; height: 80px; background: #555; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
+  .person:hover { background: #8b7355; }
+  .person.hidden-person { background: #6b5b45; opacity: 0.8; }
+  .tip { font-size: 13px; color: #8b7355; margin-top: 20px; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>档案 002 · 建站合影</h1>
+  <p>1970年，第七观测站全体人员合影。</p >
+  <p>说明写着：“共 7 人。”</p >
+  <p>但你数了数照片，发现了一个问题。</p >
+  
+  <div class="photo-area" id="photo">
+    <!-- 这里用色块代表人物 -->
+    <div class="person" onclick="wrongClick()"></div>
+    <div class="person" onclick="wrongClick()"></div>
+    <div class="person" onclick="wrongClick()"></div>
+    <div class="person" onclick="wrongClick()"></div>
+    <div class="person" onclick="wrongClick()"></div>
+    <div class="person" onclick="wrongClick()"></div>
+    <div class="person" onclick="wrongClick()"></div>
+    <!-- 多出来的第8个人 -->
+    <div class="person hidden-person" onclick="correctClick()"></div>
+  </div>
+
+  <p style="font-size: 14px; color: #c4b59a;">点击照片里多出来的那个人。</p >
+  <div class="tip" id="tip">提示：一共7个人，为什么照片里有8个？</div>
+</div>
+
+<script>
+function wrongClick() {
+  var tip = document.getElementById('tip');
+  tip.innerText = '这个人没问题。再仔细看看。';
+  tip.style.color = '#8b3a3a';
+  setTimeout(function(){ tip.innerText = '提示：一共7个人，为什么照片里有8个？'; tip.style.color = '#8b7355'; }, 2000);
+}
+function correctClick() {
+  var tip = document.getElementById('tip');
+  tip.innerText = '档案003 正在整理中……';
+  tip.style.color = '#8b7355';
+  // 后续可以在这里加跳转到 archive003.html 的代码
+}
+</script>
+
+</body>
+</html>
