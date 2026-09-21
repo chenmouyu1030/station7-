@@ -150,15 +150,13 @@
 </head>
 <body>
 
-<div class="container" id="main">
-  <h1>第七观测站</h1>
-  <div class="subtitle">档 案 001 · 观 测 日 志 （ 残 页 ）</div>
-
-  <div class="log">
+<div class="log">
     <div class="date">1978年7月10日</div>
-    <p>今天天线又收到那个频率了。</p>
-    <p>***。</p>
-    <p>和上个月一样。</p>
+    <p>今天天线又收到那个频率了。</p >
+    <p>我好像在哪里看到过类似的信号。</p >
+    <p>好像是爷爷留给我的箱子有一封信。</p >
+    <p>我去找一下。</p >
+    <p>好像在https://space.bilibili.com/3546926660192800?spm_id_from=333.1007.0.0。</p >
     <div class="signature">—— 气象员 周德明</div>
   </div>
 
@@ -181,28 +179,31 @@
 <script>
 function checkAnswer() {
   var input = document.getElementById('answer');
-  var val = input.value.trim();
+  var val = input.value.trim().toUpperCase(); // 忽略大小写
   var error = document.getElementById('error');
   var main = document.getElementById('main');
   var unlocked = document.getElementById('unlocked');
 
-  if (val === '89.7' || val === '89.7频率' || val === '89.7hz') {
-    // 正确
+  if (val === '89.7' || val === '897' || val === '89.7HZ') {
+    // 真答案，正确跳转
     main.classList.add('hidden');
     unlocked.classList.remove('hidden');
     localStorage.setItem('station_progress', '002');
-    
-    // 等待2秒后跳转
     setTimeout(function() {
       window.location.href = './archive002.html';
     }, 2000);
-  } else {
-    // 错误
+  } else if (val === 'ZBG') {
+    // 玩家直接把密文输进来了
+    error.innerText = '这是密文，还没解密呢。密码和密钥都是三个字母，密钥用 STA。';
     error.style.display = 'block';
     input.classList.add('shake');
-    setTimeout(function() {
-      input.classList.remove('shake');
-    }, 400);
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+  } else {
+    // 其他错误
+    error.innerText = '频率错误，请重新记录。';
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
   }
 }
 
