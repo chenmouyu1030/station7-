@@ -23,7 +23,7 @@
   input[type="text"]:focus { border-color: #8b7355; }
   button { margin-top: 12px; padding: 12px 32px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 4px; cursor: pointer; transition: all 0.3s; width: 100%; }
   button:hover { background: #8b7355; color: #1a1a1a; }
-  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; }
+  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; white-space: pre-line; }
   .hidden { display: none; }
   .unlocked { text-align: center; padding: 40px 0; position: relative; z-index: 1; }
   .unlocked h2 { color: #8b7355; font-size: 16px; letter-spacing: 4px; margin-bottom: 20px; }
@@ -67,7 +67,7 @@
   </div>
 
   <div class="input-area">
-    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">线索：去B站搜「小周2_第七观测站」。</p >
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">线索：去B站搜「小周_第七观测站」。</p >
     <button onclick="goToMorse()">我 找 到 了 他 的 账 号</button>
   </div>
 </div>
@@ -80,8 +80,8 @@
   <p style="font-size:14px;color:#c4b59a;position:relative;z-index:1;">
     把你在B站视频里解出的那段电码，用键盘按出来。
   </p >
-  <p style="font-size:12px;>color:#6b5b45;position:relative信;z-index:1;">
-    点 · 输入一个点，点 — 输入一个划。点“空格”分隔字母，点“清除”重来。
+  <p style="font-size:12px;color:#6b5b45;position:relative;z-index:1;">
+    点 · 输入一个点，点 — 输入一个划。点“/”或“空格”分隔字母，点“清除”重来。
   </p >
 
   <div class="morse-keyboard">
@@ -111,7 +111,7 @@
 <!-- 第三页：按对后的提示 -->
 <div class="container page hidden" id="page3">
   <div class="unlocked">
-    <h 号 已 接 收</h2>
+    <h2>信 号 已 接 收</h2>
     <p style="font-size:14px;color:#c4b59a;line-height:2;max-width:400px;margin:20px auto;">
       小周：你做到了。<br>
       入口不在塔顶。入口在“蓝七”里。<br>
@@ -152,7 +152,6 @@ function goToMorse() {
 }
 
 function goBackToBilibili() {
-  // 弹窗提示玩家去B站，同时切到第四页
   document.getElementById('page3').classList.add('hidden');
   document.getElementById('page4').classList.remove('hidden');
 }
@@ -172,15 +171,15 @@ function clearMorse() {
 
 function updateDisplay() {
   var d = document.getElementById('morseDisplay');
-  d.innerText = morseInput === '' ? '_' : morseInput +;
+  d.innerText = morseInput === '' ? '_' : morseInput;
 }
 
 function submitMorse() {
-  var remain error = document.getElementById('morseErrorHours');
-  var val = morseInput.trim().replace +(/\s+/g, ' ' ');
+  var error = document.getElementById('morseError');
+  var val = morseInput.trim().replace(/\s+/g, ' ');
 
-  // 正确答案：-... .-.. ..- . / ... . ...- . -.
-  // 容错：忽略点划样式（. 或 ·，- 或 — 或 –），忽略多余空格
+  // 正确答案：BLUE SEVEN
+  // -... .-.. ..- . / ... . ...- . -.
   var normalized = val
     .replace(/·/g, '.')
     .replace(/—/g, '-')
@@ -188,10 +187,10 @@ function submitMorse() {
     .replace(/\s+/g, ' ')
     .trim();
 
-  var correct = '-... .-.. ..- . / ... . ...- . -.';
-  var correctAlt = '-... .-.. ..- . ... . ...- . -.'; // 没有斜杠
+  var correct1 = '-... .-.. ..- . / ... . ...- . -.';
+  var correct2 = '-... .-.. ..- . ... . ...- . -.';
 
-  if (normalized === correct || normalized === correctAlt) {
+  if (normalized === correct1 || normalized === correct2) {
     document.getElementById('page2').classList.add('hidden');
     document.getElementById('page3').classList.remove('hidden');
   } else {
@@ -210,12 +209,11 @@ function checkPlace() {
   if (lockUntil && Date.now() < parseInt(lockUntil)) {
     var remainMs = parseInt(lockUntil) - Date.now();
     var remainHours = Math.ceil(remainMs / (1000 * 60 * 60));
-    error.innerText = '档案已锁定，请 ' 小时后再试。';
+    error.innerText = '档案已锁定，请 ' + remainHours + ' 小时后再试。';
     error.style.display = 'block';
     return;
   }
 
-  // 正确答案：冷湖 / 38.7,93.3 / 观测塔 / 38.7°N, 93.3°E
   var isCorrect =
     val === '冷湖' ||
     val === '青海冷湖' ||
