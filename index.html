@@ -193,23 +193,52 @@ function checkAnswer() {
   var main = document.getElementById('main');
   var unlocked = document.getElementById('unlocked');
 
+  // ================= 检查是否被锁定 =================
+  var lockUntil = localStorage.getItem('station7_001_lockUntil');
+  if (lockUntil && Date.now() < parseInt(lockUntil)) {
+    var remainMs = parseInt(lockUntil) - Date.now();
+    var remainHours = Math.ceil(remainMs / (1000 * 60 * 60));
+    error.innerText = '档案已锁定，请 ' + remainHours + ' 小时后再试。';
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+    return; // 被锁定时，直接结束，不再执行下面的逻辑
+  }
+  // ================= 锁定检查结束 =================
+
   if (val === '89.7' || val === '897' || val === '89.7HZ') {
     // 真答案，正确跳转
     main.classList.add('hidden');
     unlocked.classList.remove('hidden');
     localStorage.setItem('station_progress', '002');
+    
+    // 答对后，清除错误记录和锁定状态
+    localStorage.removeItem('station7_001_attempts');
+    localStorage.removeItem('station7_001_lockUntil');
+
     setTimeout(function() {
       window.location.href = './archive002.html';
     }, 2000);
-  } else if (val === 'ZBG') {
-    // 玩家直接把密文输进来了
-    error.innerText = '这是密文，还没解密呢。密码和密钥都是三个字母，密钥用 STA。';
-    error.style.display = 'block';
-    input.classList.add('shake');
-    setTimeout(function() { input.classList.remove('shake'); }, 400);
   } else {
-    // 其他错误
-    error.innerText = '频率错误，请重新记录。';
+    // 错误处理（包括输入 ZBG 和其他错误）
+    var attempts = parseInt(localStorage.getItem('station7_001_attempts') || '0') + 1;
+    localStorage.setItem('station7_001_attempts', attempts);
+
+    if (attempts >= 2) {
+      // 错2次，锁定24小时
+      var lockTime = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem('station7_001_lockUntil', lockTime);
+      error.innerText = '错误次数过多，档案已锁定 24 小时。';
+    } else {
+      // 只错1次，给出提示并警告
+      if (val === 'ZBG') {
+        // 保留你的密文提示
+        error.innerText = '这是密文，还没解密呢。密码和密钥都是三个字母，密钥用 STA。（警告：再错一次，档案将锁定 24 小时。）';
+      } else {
+        error.innerText = '频率错误，请重新记录。（警告：再错一次，档案将锁定 24 小时。）';
+      }
+    }
+    
     error.style.display = 'block';
     input.classList.add('shake');
     setTimeout(function() { input.classList.remove('shake'); }, 400);
