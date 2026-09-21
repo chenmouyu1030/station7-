@@ -17,36 +17,29 @@
   .clickable:hover { color: #c4b59a; }
   .hidden-text { display: none; color: #6b5b45; font-size: 13px; margin: 8px 0 8px 16px; padding-left: 12px; border-left: 2px solid #3a3025; }
 
-  /* 照片区域 */
   .photo-section { position: relative; z-index: 1; margin: 20px 0; }
-  .photo-frame { width: 100%; height: 260px; background: #333; border: 1px solid #555; position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 20px; box-sizing: border-box; cursor: pointer; }
-  .photo-frame:hover { background: #3a3a3a; }
+  .photo-frame { width: 100%; height: 260px; background: #333; border: 1px solid #555; position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 20px; box-sizing: border-box; }
   .person-row { display: flex; justify-content: center; gap: 6px; }
   .person { width: 14px; height: 60px; background: #555; border-radius: 3px; }
-  .person.missing { background: transparent; border: 2px dashed #8b7355; cursor: pointer; }
-  .person.missing:hover { background: #3a3025; }
 
-  /* 缺失区域 */
-  .missing-area { position: absolute; cursor: pointer; border: 2px dashed #8b7355; display: flex; justify-content: center; align-items: center; color: #8b7355; font-size: 9px; }
+  .missing-area { position: absolute; cursor: pointer; border: 2px dashed #8b7355; display: flex; justify-content: center; align-items: center; color: #8b7355; font-size: 11px; }
   .missing-area:hover { background: #3a3025; }
   .missing-clock { top: 15px; left: 15px; width: 45px; height: 45px; border-radius: 50%; }
   .missing-calendar { top: 15px; right: 15px; width: 45px; height: 45px; }
   .missing-person { bottom: 20px; right: 40px; width: 20px; height: 60px; border-radius: 3px; }
 
-  /* 输入弹窗 */
   .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 999; }
   .modal-content { background: #2a2a2a; padding: 30px; border-radius: 4px; text-align: center; max-width: 300px; width: 80%; }
   .modal-content p { font-size: 14px; color: #c4b59a; margin-bottom: 16px; }
   .modal-content input { width: 100%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid #3a3025; color: #d4c5a9; font-family: 'Courier New', monospace; font-size: 16px; text-align: center; box-sizing: border-box; margin-bottom: 12px; }
-  .modal-content button { padding: 10px 24px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; cursor: pointer; margin: 0 4px; }
+  .modal-content button { padding:: 10px 24px; background:  transparent; border: 1px solid #8b73552px; color: #8b7355;; font-family: 'Courier New', monospace; font-size: 14px; cursor: pointer; margin: 0 4px; }
   .modal-content button:hover { background: #8b7355; color: #1a1a1a; }
   .modal-content .close-btn { border-color: #555; color: #888; }
 
   .input-area { position: relative; z-index: 1; margin-top: 30px; border-top: 1px solid #3a3025; padding-top: 24px; }
-  .input-area label { display: block; font-size: 13px; color: #8b7355; margin-bottom: 12px; letter-spacing: 2px; }
   button { margin-top: 16px; padding: 12px 32px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 4px; cursor: pointer; transition: all 0.3s; width: 100%; }
   button:hover { background: #8b7355; color: #1a1a1a; }
-  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; }
+  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing }
   .hidden { display: none; }
   .page { position: relative; z-index: 1; }
   .unlocked { text-align: center; padding: 40px 0; position: relative; z-index: 1; }
@@ -92,12 +85,9 @@
   <div class="subtitle">点击缺失的部分，填入正确的数字</div>
 
   <div class="photo-section">
-    <div class="photo-frame" onclick="showPhotoTip()">
-      <!-- 缺失区域：闹钟 -->
+    <div class="photo-frame">
       <div class="missing-area missing-clock" id="missingClock" onclick="openModal('clock')">?</div>
-      <!-- 缺失区域：日历 -->
       <div class="missing-area missing-calendar" id="missingCalendar" onclick="openModal('calendar')">?</div>
-      <!-- 缺失区域：人 -->
       <div class="missing-area missing-person" id="missingPerson" onclick="openModal('person')">?</div>
 
       <div class="person-row">
@@ -153,10 +143,6 @@ function goToPhoto() {
   document.getElementById('page2').classList.remove('hidden');
 }
 
-function showPhotoTip() {
-  document.getElementById('progress').innerText = '点击照片上的「?」补全缺失的部分。';
-}
-
 function openModal(slot) {
   if (found[slot]) {
     document.getElementById('progress').innerText = '这处已经补全了。';
@@ -195,7 +181,6 @@ function submitAnswer() {
     foundCount++;
     closeModal();
 
-    // 更新界面
     if (currentSlot === 'clock') {
       document.getElementById('missingClock').innerText = '7';
       document.getElementById('missingClock').style.color = '#8b7355';
@@ -204,9 +189,9 @@ function submitAnswer() {
     if (currentSlot === 'calendar') {
       document.getElementById('missingCalendar').innerText = '3';
       document.getElementById('missingCalendar').style.color = '#8b7355';
-      document.getElementById('missingCalendar').style.borderColor = '#8 b7355';
+      document.getElementById('missingCalendar').style.borderColor = '#8b7355';
     }
-    if (currentSlot每 === 'person') {
+    if (currentSlot === 'person') {
       document.getElementById('missingPerson').innerText = '8';
       document.getElementById('missingPerson').style.color = '#8b7355';
       document.getElementById('missingPerson').style.borderColor = '#8b7355';
