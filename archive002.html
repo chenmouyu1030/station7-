@@ -6,57 +6,154 @@
 <title>第七观测站 · 档案002</title>
 <style>
   body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
-  .container { max-width: 600px; width: 90%; background: #2a2a2a; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; text-align: center; }
-  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 20px; }
-  .photo-area { position: relative; width: 100%; height: 250px; background: #333; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 20px; border: 1px dashed #555; margin-bottom: 30px; }
-  .person { width: 30px; height: 80px; background: #555; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
-  .person:hover { background: #8b7355; }
-  .person.hidden-person { background: #6b5b45; opacity: 0.8; }
-  .tip { font-size: 13px; color: #8b7355; margin-top: 20px; letter-spacing: 2px; }
+  .container { max-width: 600px; width: 90%; background: url('paper.jpg') center/cover; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; }
+  .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); border-radius: 4px; pointer-events: none; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 20px; text-align: center; position: relative; z-index: 1; }
+  p { font-size: 14px; line-height: 2; color: #c4b59a; margin-bottom: 10px; position: relative; z-index: 1; }
+  .photos { display: flex; justify-content: space-between; gap: 10px; margin: 20px 0; position: relative; z-index: 1; }
+  .photo-box { width: 48%; }
+  .photo-box h3 { font-size: 12px; color: #8b7355; text-align: center; margin-bottom: 8px; }
+  .photo-frame { width: 100%; height: 220px; background: #333; border: 1px solid #555; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 10px; position: relative; }
+  .row { display: flex; justify-content: center; }
+  .person { width: 12px; height: 50px; background: #555; border-radius: 2px; margin: 0 2px; }
+  .hidden-diff { cursor: pointer; }
+  .hidden-diff:hover { background: #8b7355; }
+  .diff1 { background: #6b5b45 !important; opacity: 0.8; }
+  .clock { position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border: 2px solid #666; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 10px; color: #666; cursor: pointer; }
+  .clock.highlight { border-color: #8b7355; color: #8b7355; }
+  .calendar { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border: 2px solid #666; display: flex; justify-content: center; align-items: center; font-size: 10px; color: #666; cursor: pointer; }
+  .calendar.highlight { border-color: #8b7355; color: #8b7355; }
+  .tip { font-size: 13px; color: #8b7355; margin-top: 20px; text-align: center; letter-spacing: 2px; position: relative; z-index: 1; }
+  .hidden { display: none; }
+  .unlocked { text-align: center; padding: 40px 0; position: relative; z-index: 1; }
+  .unlocked h2 { color: #8b7355; font-size: 16px; letter-spacing: 4px; margin-bottom: 20px; }
+  .found-count { font-size: 13px; color: #6b5b45; text-align: center; margin-top: 8px; }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="main">
   <h1>档案 002 · 建站合影</h1>
-  <p>1970年，第七观测站全体人员合影。</p >
-  <p>说明写着：“共 7 人。”</p >
-  <p>但你数了数照片，发现了一个问题。</p >
-  
-  <div class="photo-area" id="photo">
-    <!-- 这里用色块代表人物 -->
-    <div class="person" onclick="wrongClick()"></div>
-    <div class="person" onclick="wrongClick()"></div>
-    <div class="person" onclick="wrongClick()"></div>
-    <div class="person" onclick="wrongClick()"></div>
-    <div class="person" onclick="wrongClick()"></div>
-    <div class="person" onclick="wrongClick()"></div>
-    <div class="person" onclick="wrongClick()"></div>
-    <!-- 多出来的第8个人 -->
-    <div class="person hidden-person" onclick="correctClick()"></div>
+  <p>左边是1970年原版合影，右边是档案库的备份。</p >
+  <p>备份出现了3处不同。点击右边照片上不同的地方。</p >
+
+  <div class="photos">
+    <div class="photo-box original">
+      <h3>原版</h3>
+      <div class="photo-frame">
+        <div class="clock">6</div>
+        <div class="calendar">2</div>
+        <div class="row">
+          <div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div>
+          <div class="person"></div><div class="person"></div><div class="person"></div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-box backup">
+      <h3>备份</h3>
+      <div class="photo-frame">
+        <div class="clock highlight" onclick="foundDiff('clock')">7</div>
+        <div class="calendar highlight" onclick="foundDiff('calendar')">3</div>
+        <div class="row">
+          <div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div>
+          <div class="person"></div><div class="person"></div><div class="person"></div>
+          <div class="person hidden-diff diff1" onclick="foundDiff('person')"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <p style="font-size: 14px; color: #c4b59a;">点击照片里多出来的那个人。</p >
-  <div class="tip" id="tip">提示：一共7个人，为什么照片里有8个？</div>
+  <div class="found-count" id="foundCount">已找到 0 / 3 处不同</div>
+  <div class="tip" id="tip">提示：仔细对比两张照片。</div>
+</div>
+
+<div class="container hidden" id="unlocked">
+  <div class="unlocked">
+    <h2>档案 003 已解锁</h2>
+    <p>云图照片（1985）</p >
+    <p style="font-size:12px;color:#6b5b45;margin-top:20px;">正在跳转……</p >
+  </div>
 </div>
 
 <script>
-function wrongClick() {
+var found = 0;
+
+function foundDiff(id) {
   var tip = document.getElementById('tip');
-  tip.innerText = '这个人没问题。再仔细看看。';
-  tip.style.color = '#8b3a3a';
-  setTimeout(function(){ tip.innerText = '提示：一共7个人，为什么照片里有8个？'; tip.style.color = '#8b7355'; }, 2000);
+  var countEl = document.getElementById('foundCount');
+
+  var lockUntil = localStorage.getItem('station7_002_lockUntil');
+  if (lockUntil && Date.now() < parseInt(lockUntil)) {
+    var remainMs = parseInt(lockUntil) - Date.now();
+    var remainHours = Math.ceil(remainMs / (1000 * 60 * 60));
+    tip.innerText = '档案已锁定，请 ' + remainHours + ' 小时后再试。';
+    tip.style.color = '#8b3a3a';
+    return;
+  }
+
+  if (localStorage.getItem('station7_002_found_' + id) === '1') {
+    tip.innerText = '这处不同你已经找到了。';
+    tip.style.color = '#8b7355';
+    return;
+  }
+
+  localStorage.setItem('station7_002_found_' + id, '1');
+  found++;
+  countEl.innerText = '已找到 ' + found + ' / 3 处不同';
+
+  if (found === 1) { tip.innerText = '第1处。继续。'; tip.style.color = '#8b7355'; }
+  if (found === 2) { tip.innerText = '第2处。还差最后一处。'; tip.style.color = '#8b7355'; }
+
+  if (found >= 3) {
+    localStorage.removeItem('station7_002_attempts');
+    localStorage.removeItem('station7_002_lockUntil');
+
+    var main = document.getElementById('main');
+    var unlocked = document.getElementById('unlocked');
+
+    tip.innerText = '3处不同全部找到。数字是：8、7、3。';
+    tip.style.color = '#8b7355';
+
+    main.classList.add('hidden');
+    unlocked.classList.remove('hidden');
+
+    setTimeout(function() {
+      window.location.href = './archive003.html';
+    }, 3000);
+  }
 }
-function correctClick() {
+
+document.querySelector('.backup .photo-frame').addEventListener('click', function(e) {
+  if (e.target.classList.contains('hidden-diff') || e.target.classList.contains('clock') || e.target.classList.contains('calendar')) return;
+
   var tip = document.getElementById('tip');
-  tip.innerText = '档案003 正在整理中……';
-  tip.style.color = '#8b7355';
-  
-  // 等待2秒后，自动跳转到档案003
-  setTimeout(function() {
-    window.location.href = './archive003.html';
-  }, 2000);
-}
+
+  var lockUntil = localStorage.getItem('station7_002_lockUntil');
+  if (lockUntil && Date.now() < parseInt(lockUntil)) {
+    var remainMs = parseInt(lockUntil) - Date.now();
+    var remainHours = Math.ceil(remainMs / (1000 * 60 * 60));
+    tip.innerText = '档案已锁定，请 ' + remainHours + ' 小时后再试。';
+    tip.style.color = '#8b3a3a';
+    return;
+  }
+
+  var attempts = parseInt(localStorage.getItem('station7_002_attempts') || '0') + 1;
+  localStorage.setItem('station7_002_attempts', attempts);
+
+  if (attempts >= 2) {
+    var lockTime = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem('station7_002_lockUntil', lockTime);
+    tip.innerText = '错误次数过多，档案已锁定 24 小时。';
+    tip.style.color = '#8b3a3a';
+  } else {
+    tip.innerText = '这里没问题。再仔细看看。（警告：再点错一次，档案将锁定 24 小时。）';
+    tip.style.color = '#8b3a3a';
+    setTimeout(function(){
+      tip.innerText = '提示：仔细对比两张照片。';
+      tip.style.color = '#8b7355';
+    }, 3000);
+  }
+});
 </script>
 
 </body>
