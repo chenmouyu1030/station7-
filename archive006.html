@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第七观测站 · 档案006</title>
+<style>
+  body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
+  .container { max-width: 600px; width: 90%; background: url('paper.jpg') center/cover; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; }
+  .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); border-radius: 4px; pointer-events: none; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 4px; position: relative; z-index: 1; }
+  .subtitle { font-size: 12px; color: #6b5b45; margin-bottom: 30px; letter-spacing: 2px; position: relative; z-index: 1; }
+  .log { font-size: 15px; line-height: 2; color: #c4b59a; margin-bottom: 30px; position: relative; z-index: 1; }
+  .log p { margin: 0 0 8px 0; }
+  .signature { text-align: right; font-size: 13px; color: #8b7355; margin-top: 20px; }
+
+  .cloud-img { position: relative; z-index: 1; width: 100%; height: 240px; background: #2a2a2a; border: 1px solid #555; margin: 20px 0; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  .cloud-layer { width: 85%; height: 18px; background: #555; border-radius: 50%; margin: 4px auto; }
+  .layer-1 { opacity: 0.3; }
+  .layer-2 { opacity: 0.4; }
+  .layer-3 { opacity: 0.5; }
+  .layer-4 { opacity: 0.6; }
+  .layer-5 { opacity: 0.7; }
+  .layer-6 { opacity: 0.8; }
+  .layer-7 { opacity: 0.15; background: #8b7355; height: 34px; border-radius: 10px; margin-top: 10px; }
+  .mirror-hint { font-size: 11px; color: #8b7355; margin-top: 12px; }
+
+  .input-area { position: relative; z-index: 1; margin-top: 20px; border-top: 1px solid #3a3025; padding-top: 20px; }
+  .input-area label { display: block; font-size: 13px; color: #8b7355; margin-bottom: 12px; letter-spacing: 2px; }
+  input[type="text"] { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid #3a3025; color: #d4c5a9; font-family: 'Courier New', monospace; font-size: 16px; letter-spacing: 2px; outline: none; box-sizing: border-box; }
+  input[type="text"]:focus { border-color: #8b7355; }
+  input[type="file"] { width: 100%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid #3a3025; color: #8b7355; font-family: 'Courier New', monospace; font-size: 13px; box-sizing: border-box; margin-bottom: 12px; }
+  button { margin-top: 12px; padding: 12px 32px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 4px; cursor: pointer; transition: all 0.3s; width: 100%; }
+  button:hover { background: #8b7355; color: #1a1a1a; }
+  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; white-space: pre-line; }
+  .status { font-size: 13px; color: #8b7355; margin-top: 12px; display: none; letter-spacing: 2px; }
+  .hint { font-size: 12px; color: #6b5b45; margin-top: 12px; }
+  .hidden { display: none; }
+  .reveal-box { position: relative; z-index: 1; background: #222; border: 1px solid #555; padding: 24px; margin: 20px 0; border-radius: 4px; }
+  .reveal-box p { font-size: 14px; line-height: 2; color: #c4b59a; margin-bottom: 10px; }
+  .reveal-box .key { color: #8b7355; font-weight: bold; }
+  .shake { animation: shake 0.4s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+  .page { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<!-- 第一页：日志 + 云图 -->
+<div class="container page" id="page1">
+  <h1>档案 006 · 林雪的云图</h1>
+  <div class="subtitle">1978年7月9日 林雪手绘</div>
+
+  <div class="log">
+    <p>你在箱底夹层里发现了一张手绘的云图。</p >
+    <p>背面写着：“林雪，1978年7月9日。”</p >
+    <p>还有一行字：“如果你能看懂这张图，你就知道第七层是什么了。”</p >
+  </div>
+
+  <div class="cloud-img">
+    <div class="cloud-layer layer-1"></div>
+    <div class="cloud-layer layer-2"></div>
+    <div class="cloud-layer layer-3"></div>
+    <div class="cloud-layer layer-4"></div>
+    <div class="cloud-layer layer-5"></div>
+    <div class="cloud-layer layer-6"></div>
+    <div class="cloud-layer layer-7"></div>
+    <div class="mirror-hint">第 7 层，反过来看</div>
+  </div>
+
+  <div class="input-area" id="step1">
+    <label>第一步：用手机拍下云图，水平翻转，上传翻转后的照片</label>
+    <p style="font-size:12px;color:#6b5b45;margin-bottom:12px;">
+      如果浏览器不支持自动识别，或照片模糊，请使用下方手动输入。
+    </p >
+    <input type="file" id="photoInput" accept="image/*" onchange="checkPhoto(this.files[0])">
+    <div class="status" id="status">正在分析……</div>
+    <div class="error" id="ocrError"></div>
+
+    <div class="hint" style="margin-top:24px;border-top:1px solid #3a3025;padding-top:16px;">
+      没有手机？OCR识别失败？直接输入你在翻转后的云图上看到的字：
+    </div>
+    <input type="text" id="manualAnswer" placeholder="输入文字" autocomplete="off">
+    <button onclick="checkManual()">手 动 提 交</button>
+    <div class="error" id="manualError"></div>
+  </div>
+</div>
+
+<!-- 第二页：真相揭示 -->
+<div class="container page hidden" id="page2">
+  <div class="reveal-box">
+    <h1>真 相</h1>
+    <p>林雪在1978年就看到了。</p >
+    <p class="key">第七层不是云，是一面镜子。</p >
+    <p>你在云层里看到的人形，就是你自己。</p >
+    <p>1998年7月12日，第七观测站的8个人，在镜子里看到了自己。</p >
+    <p>然后，他们进去了。</p >
+    <p>小周是唯一回来的人。</p >
+    <p>但他回来之后，再也没照过镜子。</p >
+  </div>
+
+  <div class="reveal-box">
+    <p>你翻到云图背面，发现林雪还写了一行字：</p >
+    <p class="key">“我看到了我自己。我不怕。但小周怕了。”</p >
+    <p class="key">“他看到了什么？”</p >
+  </div>
+
+  <div class="input-area">
+    <label>现在你知道真相了。2026年7月12日，冷湖观测塔。你会进去吗？</label>
+    <input type="text" id="finalChoice" placeholder="输入：进去 / 不进去" autocomplete="off">
+    <button onclick="finalSubmit()">提 交</button>
+    <div class="error" id="finalError">请输入“进去”或“不进去”。</div>
+  </div>
+</div>
+
+<!-- 第三页：结局 · 进去 -->
+<div class="container page hidden" id="ending1">
+  <div class="reveal-box">
+    <h1>结 局 · 进 去</h1>
+    <p>你买了去冷湖的机票。</p >
+    <p>2026年7月12日，你站在观测塔下。</p >
+    <p>塔顶有一面镜子。</p >
+    <p>镜子里映出你的脸。</p >
+    <p>你听到一个声音：</p >
+    <p class="key">“你终于来了。”</p >
+    <p>然后，你看到了你自己。</p >
+  </div>
+
+  <div class="reveal-box" style="border-color:#8b3a3a;">
+    <h1 style="color:#8b3a3a;">但 故 事 还 没 有 结 束</h1>
+    <p>你从梦中醒来。</p >
+    <p>你还在家里。箱子还在地上。日志还翻在最后一页。</p >
+    <p>但你的手里，多了一样东西。</p >
+    <p>是一张 2026 年 7 月 12 日，飞往冷湖的机票。</p >
+    <p style="color:#8b7355;">机票背面写着一行字：</p >
+    <p class="key">“第二章：1998年，到底发生了什么？——小周”</p >
+  </div>
+
+  <div class="input-area">
+    <button onclick="window.location.href='./archive007.html'">进 入 第 二 章</button>
+  </div>
+</div>
+
+<!-- 第四页：结局 · 不进去 -->
+<div class="container page hidden" id="ending2">
+  <div class="reveal-box">
+    <h1>结 局 · 不 进 去</h1>
+    <p>你合上日志，把箱子放回阁楼。</p >
+    <p>你决定不去冷湖。</p >
+    <p>但那天晚上，你做了一個梦。</p >
+    <p>梦里你站在云层里，低头看着自己。</p >
+    <p>你听到一个声音：</p >
+    <p class="key">“你已经在第七层了。”</p >
+  </div>
+
+  <div class="reveal-box" style="border-color:#8b3a3a;">
+    <h1 style="color:#8b3a3a;">但 故 事 还 没 有 结 束</h1>
+    <p>你醒来的时候，天还没亮。</p >
+    <p>你发现自己躺在床上，手里攥着一张纸条。</p >
+    <p>纸条上写着一串坐标：</p >
+    <p class="key" style="font-size:18px;text-align:center;">38.7°N, 93.3°E</p >
+    <p>还有一行字：</p >
+    <p class="key">“你可以选择不去。但你已经知道了。你逃不掉的。——小周”</p >
+  </div>
+
+  <div class="input-area">
+    <button onclick="window.location.href='./archive007.html'">进 入 第 二 章</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+<script>
+// ==================== OCR 检测 ====================
+async function checkPhoto(file) {
+  if (!file) return;
+
+  var status = document.getElementById('status');
+  var ocrError = document.getElementById('ocrError');
+
+  if (typeof Tesseract === 'undefined') {
+    ocrError.innerText = '当前浏览器不支持自动识别。请使用下方手动输入。';
+    ocrError.style.display = 'block';
+    return;
+  }
+
+  status.style.display = 'block';
+  status.innerText = '正在分析图片，请稍候……';
+  ocrError.style.display = 'none';
+
+  try {
+    var result = await Tesseract.recognize(file, 'chi_sim', {
+      logger: function(m) {
+        if (m.status === 'recognizing text') {
+          status.innerText = '正在识别文字…… ' + Math.round(m.progress * 100) + '%';
+        }
+      }
+    });
+
+    var text = result.data.text;
+    console.log('OCR识别结果：', text);
+
+    if (text.includes('镜子') || text.includes('第七层') || text.includes('你自己')) {
+      status.innerText = '识别成功。';
+      setTimeout(function() {
+        document.getElementById('page1').classList.add('hidden');
+        document.getElementById('page2').classList.remove('hidden');
+      }, 800);
+    } else {
+      status.style.display = 'none';
+      ocrError.innerText = '没有识别到隐藏文字。\n请确认照片已经水平翻转，或使用下方手动输入。';
+      ocrError.style.display = 'block';
+    }
+  } catch (e) {
+    console.log('OCR 错误：', e);
+    status.style.display = 'none';
+    ocrError.innerText = '识别失败。请使用下方手动输入。';
+    ocrError.style.display = 'block';
+  }
+}
+
+// ==================== 手动输入 ====================
+function checkManual() {
+  var input = document.getElementById('manualAnswer');
+  var val = input.value.trim();
+  var error = document.getElementById('manualError');
+
+  if (val.includes('镜子') || val.includes('第七层') || val.includes('你自己')) {
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.remove('hidden');
+  } else {
+    error.innerText = '不对。再仔细看看翻转后的云图。';
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+  }
+}
+
+// ==================== 最终选择 ====================
+function finalSubmit() {
+  var input = document.getElementById('finalChoice');
+  var val = input.value.trim();
+  var error = document.getElementById('finalError');
+
+  if (val === '进去' || val === '进' || val === '是') {
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('ending1').classList.remove('hidden');
+  } else if (val === '不进去' || val === '不进' || val === '否') {
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('ending2').classList.remove('hidden');
+  } else {
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+  }
+}
+
+document.getElementById('manualAnswer').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { checkManual(); }
+});
+document.getElementById('finalChoice').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { finalSubmit(); }
+});
+</script>
+
+</body>
+</html>
