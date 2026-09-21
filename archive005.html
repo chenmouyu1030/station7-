@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第七观测站 · 档案005</title>
+<style>
+  body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
+  .container { max-width: 600px; width: 90%; background: url('paper.jpg') center/cover; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; }
+  .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); border-radius: 4px; pointer-events: none; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 4px; position: relative; z-index: 1; }
+  .subtitle { font-size: 12px; color: #6b5b45; margin-bottom: 30px; letter-spacing: 2px; position: relative; z-index: 1; }
+  .log { font-size: 15px; line-height: 2; color: #c4b59a; margin-bottom: 30px; position: relative; z-index: 1; }
+  .log p { margin: 0 0 8px 0; }
+  .signature { text-align: right; font-size: 13px; color: #8b7355; margin-top: 20px; }
+  .clickable { color: #8b7355; cursor: pointer; border-bottom: 1px dashed #8b7355; }
+  .clickable:hover { color: #c4b59a; }
+  .hidden-text { display: none; color: #6b5b45; font-size: 13px; margin: 8px 0 8px 16px; padding-left: 12px; border-left: 2px solid #3a3025; }
+
+  .input-area { position: relative; z-index: 1; margin-top: 20px; border-top: 1px solid #3a3025; padding-top: 20px; }
+  .input-area label { display: block; font-size: 13px; color: #8b7355; margin-bottom: 12px; letter-spacing: 2px; }
+  input[type="text"] { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid #3a3025; color: #d4c5a9; font-family: 'Courier New', monospace; font-size: 16px; letter-spacing: 2px; outline: none; box-sizing: border-box; }
+  input[type="text"]:focus { border-color: #8b7355; }
+  button { margin-top: 12px; padding: 12px 32px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 4px; cursor: pointer; transition: all 0.3s; width: 100%; }
+  button:hover { background: #8b7355; color: #1a1a1a; }
+  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; }
+  .hidden { display: none; }
+  .unlocked { text-align: center; padding: 40px 0; position: relative; z-index: 1; }
+  .unlocked h2 { color: #8b7355; font-size: 16px; letter-spacing: 4px; margin-bottom: 20px; }
+  .shake { animation: shake 0.4s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+  .page { position: relative; z-index: 1; }
+
+  /* 虚拟摩斯键盘 */
+  .morse-keyboard { position: relative; z-index: 1; margin: 20px 0; }
+  .morse-display { background: #222; border: 1px solid #555; padding: 20px; border-radius: 4px; font-size: 18px; color: #8b7355; letter-spacing: 6px; text-align: center; min-height: 60px; word-break: break-all; margin-bottom: 12px; line-height: 1.5; }
+  .morse-buttons { display: flex; gap: 8px; }
+  .morse-btn { flex: 1; padding: 16px 0; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 18px; cursor: pointer; transition: all 0.3s; border-radius: 4px; }
+  .morse-btn:hover { background: #8b7355; color: #1a1a1a; }
+  .morse-btn.clear { border-color: #8b3a3a; color: #8b3a3a; }
+  .morse-btn.clear:hover { background: #8b3a3a; color: #1a1a1a; }
+
+  .hint-box { position: relative; z-index: 1; background: #222; border: 1px solid #3a3025; padding: 16px; border-radius: 4px; margin-top: 20px; }
+  .hint-box summary { cursor: pointer; color: #8b7355; font-size: 13px; letter-spacing: 2px; }
+  .hint-box p { font-size: 13px; color: #c4b59a; line-height: 1.8; margin: 10px 0 0 0; }
+  .hint-box .key { color: #8b7355; }
+</style>
+</head>
+<body>
+
+<!-- 第一页：日志 + 引导去B站 -->
+<div class="container page" id="page1">
+  <h1>档案 005 · 最后一封电报</h1>
+  <div class="subtitle">1978年7月13日 星期四 晴 云量0</div>
+
+  <div class="log">
+    <p>磁带不见了。老陈说他没拿。</p >
+    <p>林雪今天早上找到我，塞给我一张纸条。</p >
+    <p>纸条上是她手抄的一段电码。</p >
+    <p>她说：“这是昨晚73.8里最后一段。我记下来了。但我不敢再听第二次。”</p >
+    <p>我问她为什么。她只说了一句话：</p >
+    <p style="color:#8b7355;">“电码里有一个名字。不是我们站里的人。”</p >
+    <p>我问她是谁的名字。她没回答。</p >
+    <p>她只是说：“如果你想弄清楚，去B站找一个账号。账号名字里有一个‘周’字。”</p >
+    <p>“他会告诉你入口在哪。”</p >
+    <div class="signature">—— 周德明</div>
+  </div>
+
+  <div class="input-area">
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">线索：去B站搜「小周2_第七观测站」。</p >
+    <button onclick="goToMorse()">我 找 到 了 他 的 账 号</button>
+  </div>
+</div>
+
+<!-- 第二页：虚拟摩斯键盘 -->
+<div class="container page hidden" id="page2">
+  <h1>发 送 信 号</h1>
+  <div class="subtitle">小周：把信号发回给我。我就能告诉你入口在哪。</div>
+
+  <p style="font-size:14px;color:#c4b59a;position:relative;z-index:1;">
+    把你在B站视频里解出的那段电码，用键盘按出来。
+  </p >
+  <p style="font-size:12px;>color:#6b5b45;position:relative信;z-index:1;">
+    点 · 输入一个点，点 — 输入一个划。点“空格”分隔字母，点“清除”重来。
+  </p >
+
+  <div class="morse-keyboard">
+    <div class="morse-display" id="morseDisplay">_</div>
+    <div class="morse-buttons">
+      <button class="morse-btn" onclick="addMorse('·')">·</button>
+      <button class="morse-btn" onclick="addMorse('—')">—</button>
+      <button class="morse-btn" onclick="addMorse('/')">/</button>
+      <button class="morse-btn" onclick="addMorse(' ')">空格</button>
+      <button class="morse-btn clear" onclick="clearMorse()">清除</button>
+    </div>
+  </div>
+
+  <button onclick="submitMorse()">发 送 信 号</button>
+  <div class="error" id="morseError">信号错误。再试一次。</div>
+
+  <details class="hint-box">
+    <summary>需要帮助？</summary>
+    <p>· = 点</p >
+    <p>— = 划</p >
+    <p>每个字母之间用 <span class="key">空格</span> 隔开。</p >
+    <p>如果你不知道每个字母对应什么，可以去B站看小周的视频，评论区有人写下了电码。</p >
+    <p>电码是两个单词。第一个是颜色，第二个是数字。</p >
+  </details>
+</div>
+
+<!-- 第三页：按对后的提示 -->
+<div class="container page hidden" id="page3">
+  <div class="unlocked">
+    <h 号 已 接 收</h2>
+    <p style="font-size:14px;color:#c4b59a;line-height:2;max-width:400px;margin:20px auto;">
+      小周：你做到了。<br>
+      入口不在塔顶。入口在“蓝七”里。<br>
+      去B站找我的第四条动态。<br>
+      那里的坐标是镜像的。你要反过来看。
+    </p >
+    <button onclick="goBackToBilibili()" style="max-width:300px;margin:20px auto;">去 B 站 看 第 四 条 动 态</button>
+  </div>
+</div>
+
+<!-- 第四页：输入坐标 -->
+<div class="container page hidden" id="page4">
+  <h1>输 入 地 点</h1>
+  <div class="subtitle">把镜像坐标翻转后，输入地名或坐标</div>
+
+  <div class="input-area">
+    <label>输入地名或坐标</label>
+    <input type="text" id="answerPlace" placeholder="___" autocomplete="off">
+    <button onclick="checkPlace()">提 交 记 录</button>
+    <div class="error" id="placeError">地点错误，请重新记录。</div>
+  </div>
+</div>
+
+<!-- 解锁页 -->
+<div class="container page hidden" id="unlocked">
+  <div class="unlocked">
+    <h2>档案 006 已解锁</h2>
+    <p>林雪的云图</p >
+    <p style="font-size:12px;color:#6b5b45;margin-top:20px;">正在跳转……</p >
+  </div>
+</div>
+
+<script>
+// ==================== 页面跳转 ====================
+function goToMorse() {
+  document.getElementById('page1').classList.add('hidden');
+  document.getElementById('page2').classList.remove('hidden');
+}
+
+function goBackToBilibili() {
+  // 弹窗提示玩家去B站，同时切到第四页
+  document.getElementById('page3').classList.add('hidden');
+  document.getElementById('page4').classList.remove('hidden');
+}
+
+// ==================== 虚拟摩斯键盘 ====================
+var morseInput = '';
+
+function addMorse(ch) {
+  morseInput += ch;
+  updateDisplay();
+}
+
+function clearMorse() {
+  morseInput = '';
+  updateDisplay();
+}
+
+function updateDisplay() {
+  var d = document.getElementById('morseDisplay');
+  d.innerText = morseInput === '' ? '_' : morseInput +;
+}
+
+function submitMorse() {
+  var remain error = document.getElementById('morseErrorHours');
+  var val = morseInput.trim().replace +(/\s+/g, ' ' ');
+
+  // 正确答案：-... .-.. ..- . / ... . ...- . -.
+  // 容错：忽略点划样式（. 或 ·，- 或 — 或 –），忽略多余空格
+  var normalized = val
+    .replace(/·/g, '.')
+    .replace(/—/g, '-')
+    .replace(/–/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  var correct = '-... .-.. ..- . / ... . ...- . -.';
+  var correctAlt = '-... .-.. ..- . ... . ...- . -.'; // 没有斜杠
+
+  if (normalized === correct || normalized === correctAlt) {
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('page3').classList.remove('hidden');
+  } else {
+    error.style.display = 'block';
+    error.innerText = '信号错误。再试一次。\n（提示：两个单词，中间有一个空格或斜杠。）';
+  }
+}
+
+// ==================== 输入地点 ====================
+function checkPlace() {
+  var input = document.getElementById('answerPlace');
+  var val = input.value.trim().toLowerCase();
+  var error = document.getElementById('placeError');
+
+  var lockUntil = localStorage.getItem('station7_005_lockUntil');
+  if (lockUntil && Date.now() < parseInt(lockUntil)) {
+    var remainMs = parseInt(lockUntil) - Date.now();
+    var remainHours = Math.ceil(remainMs / (1000 * 60 * 60));
+    error.innerText = '档案已锁定，请 ' 小时后再试。';
+    error.style.display = 'block';
+    return;
+  }
+
+  // 正确答案：冷湖 / 38.7,93.3 / 观测塔 / 38.7°N, 93.3°E
+  var isCorrect =
+    val === '冷湖' ||
+    val === '青海冷湖' ||
+    val === 'lenghu' ||
+    val === 'leng hu' ||
+    val === '38.7,93.3' ||
+    val === '38.7 93.3' ||
+    val === '38.7°n,93.3°e' ||
+    val === '38.7n93.3e' ||
+    val === '观测塔' ||
+    val === '第七观测站';
+
+  if (isCorrect) {
+    document.getElementById('page4').classList.add('hidden');
+    document.getElementById('unlocked').classList.remove('hidden');
+    localStorage.removeItem('station7_005_attempts');
+    localStorage.removeItem('station7_005_lockUntil');
+    setTimeout(function() {
+      window.location.href = './archive006.html';
+    }, 2000);
+  } else {
+    var attempts = parseInt(localStorage.getItem('station7_005_attempts') || '0') + 1;
+    localStorage.setItem('station7_005_attempts', attempts);
+
+    if (attempts >= 2) {
+      var lockTime = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem('station7_005_lockUntil', lockTime);
+      error.innerText = '错误次数过多，档案已锁定 24 小时。';
+    } else {
+      error.innerText = '地点错误。再错一次，档案将锁定 24 小时。';
+    }
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+  }
+}
+
+document.getElementById('answerPlace').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { checkPlace(); }
+});
+</script>
+
+</body>
+</html>
