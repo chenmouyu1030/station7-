@@ -5,251 +5,211 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第七观测站 · 档案001</title>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: #1a1a1a;
-    font-family: 'Courier New', monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #d4c5a9;
-  }
-  .container {
-    max-width: 600px;
-    width: 90%;
-    background: url('paper.jpg') center/cover;
-    padding: 40px;
-    border-radius: 4px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.8);
-    position: relative;
-  }
-  .container::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.3);
-    border-radius: 4px;
-    pointer-events: none;
-  }
-  h1 {
-    font-size: 18px;
-    letter-spacing: 4px;
-    color: #8b7355;
-    margin-bottom: 4px;
-  }
-  .subtitle {
-    font-size: 12px;
-    color: #6b5b45;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-  }
-  .log {
-    font-size: 15px;
-    line-height: 2;
-    color: #c4b59a;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
-  }
-  .log p {
-    margin: 0 0 8px 0;
-    word-break: break-all; /* 防止长链接撑破手机屏幕 */
-  }
-  .date {
-    color: #8b7355;
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-  .signature {
-    text-align: right;
-    font-size: 13px;
-    color: #8b7355;
-    margin-top: 20px;
-  }
-  .input-area {
-    position: relative;
-    z-index: 1;
-    margin-top: 30px;
-    border-top: 1px solid #3a3025;
-    padding-top: 24px;
-  }
-  .input-area label {
-    display: block;
-    font-size: 13px;
-    color: #8b7355;
-    margin-bottom: 12px;
-    letter-spacing: 2px;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    background: rgba(0,0,0,0.4);
-    border: 1px solid #3a3025;
-    color: #d4c5a9;
-    font-family: 'Courier New', monospace;
-    font-size: 16px;
-    letter-spacing: 4px;
-    outline: none;
-    box-sizing: border-box;
-  }
-  input[type="text"]:focus {
-    border-color: #8b7355;
-  }
-  button {
-    margin-top: 16px;
-    padding: 12px 32px;
-    background: transparent;
-    border: 1px solid #8b7355;
-    color: #8b7355;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    letter-spacing: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-  }
-  button:hover {
-    background: #8b7355;
-    color: #1a1a1a;
-  }
-  .error {
-    color: #8b3a3a;
-    font-size: 13px;
-    margin-top: 12px;
-    display: none;
-    letter-spacing: 2px;
-  }
-  .shake {
-    animation: shake 0.4s;
-  }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-  }
-  .hidden {
-    display: none;
-  }
-  .unlocked {
-    text-align: center;
-    padding: 40px 0;
-  }
-  .unlocked h2 {
-    color: #8b7355;
-    font-size: 16px;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-  }
-  .unlocked p {
-    font-size: 14px;
-    color: #c4b59a;
-    line-height: 2;
-  }
+  body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
+  .container { max-width: 600px; width: 90%; background: url('paper.jpg') center/cover; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; }
+  .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); border-radius: 4px; pointer-events: none; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 4px; position: relative; z-index: 1; }
+  .subtitle { font-size: 12px; color: #6b5b45; margin-bottom: 30px; letter-spacing: 2px; position: relative; z-index: 1; }
+  .log { font-size: 15px; line-height: 2; color: #c4b59a; margin-bottom: 30px; position: relative; z-index: 1; }
+  .log p { margin: 0 0 8px 0; }
+  .date { color: #8b7355; font-size: 13px; margin-bottom: 16px; }
+  .signature { text-align: right; font-size: 13px; color: #8b7355; margin-top: 20px; }
+  .clickable { color: #8b7355; cursor: pointer; border-bottom: 1px dashed #8b7355; }
+  .clickable:hover { color: #c4b59a; }
+  .hidden-text { display: none; color: #6b5b45; font-size: 13px; margin: 8px 0 8px 16px; padding-left: 12px; border-left: 2px solid #3a3025; }
+  .input-area { position: relative; z-index: 1; margin-top: 30px; border-top: 1px solid #3a3025; padding-top: 24px; }
+  .input-area label { display: block; font-size: 13px; color: #8b7355; margin-bottom: 12px; letter-spacing: 2px; }
+  input[type="text"] { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid #3a3025; color: #d4c5a9; font-family: 'Courier New', monospace; font-size: 16px; letter-spacing: 2px; outline: none; box-sizing: border-box; }
+  input[type="text"]:focus { border-color: #8b7355; }
+  button { margin-top: 16px; padding: 12px 32px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 4px; cursor: pointer; transition: all 0.3s; width: 100%; }
+  button:hover { background: #8b7355; color: #1a1a1a; }
+  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; }
+  .shake { animation: shake 0.4s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+  .hidden { display: none; }
+  .page { position: relative; z-index: 1; }
+  .cover { text-align: center; padding: 60px 0; }
+  .cover h2 { font-size: 22px; letter-spacing: 6px; color: #8b7355; margin-bottom: 20px; }
+  .cover p { font-size: 14px; color: #6b5b45; letter-spacing: 2px; margin-bottom: 8px; }
+  .cover .small { font-size: 12px; color: #4a3f35; margin-top: 30px; }
+  .btn-center { text-align: center; margin-top: 24px; }
 </style>
 </head>
 <body>
 
-<!-- 这里是修复的关键：必须加上 id="main" 的包裹层 -->
-<div class="container" id="main">
-  
-  <h1>第七观测站</h1>
-  <div class="subtitle">档 案 001 · 观 测 日 志 （ 残 页 ）</div>
+<!-- 封面 -->
+<div class="container page" id="coverPage">
+  <div class="cover">
+    <h2>第七观测站</h2>
+    <p>观测日志</p >
+    <p>1978</p >
+    <p style="margin-top:30px;">气象员：周德明</p >
+    <p class="small">（如果你看到这本日志，说明我已经不在了。）</p >
+  </div>
+  <div class="btn-center">
+    <button onclick="openLog()" style="width:auto;padding:12px 48px;">打 开 日 志</button>
+  </div>
+</div>
+
+<!-- 第一页：1978年7月10日 -->
+<div class="container page hidden" id="page1">
+  <h1>档案 001 · 观测日志（一）</h1>
+  <div class="subtitle">1978年7月10日 星期一 晴 云量2</div>
 
   <div class="log">
-    <div class="date">1978年7月10日</div>
     <p>今天天线又收到那个频率了。</p >
-    <p>我好像在哪里看到过类似的信号。</p >
-    <p>好像是爷爷留给我的箱子有一封信。</p >
-    <p>我去找一下。</p >
-    <p>好像在 https://space.bilibili.com/3546926660192800</p >
-    <div class="signature">—— 气象员 周德明</div>
+    <p><span class="clickable" onclick="toggle('h1_1')">89.7</span>。</p >
+    <div class="hidden-text" id="h1_1">这个频率已经出现很多次了。每天晚上十点准时出现，持续三分钟，然后消失。从建站那年开始，就没有断过。</div>
+    <p>和上个月一样，和去年一样。</p >
+    <p>我记录了，但没有回应。<span class="clickable" onclick="toggle('h1_2')">老陈</span>说不要写进正式报告。</p >
+    <div class="hidden-text" id="h1_2">老陈是站长，1970年建站时就在了。他平时话不多，但每次提到89.7，他的眼神就会变得很奇怪。</div>
+    <p>我问为什么，他说“上面不让写”。</p >
+    <p>我问哪个<span class="clickable" onclick="toggle('h1_3')">上面</span>。他没回答。</p >
+    <div class="hidden-text" id="h1_3">后来我才知道，“上面”不是省局。</div>
+    <p>晚上我翻了翻以前的记录，发现从建站那年开始，这个频率就一直在。</p >
+    <p>林雪也听到过，但她从来不提。</p >
+    <p>信封背面有一串字母，是之前有人寄来的。我一直没看懂。</p >
+    <div class="signature">—— 周德明</div>
   </div>
 
   <div class="input-area">
-    <label>输入频率</label>
-    <input type="text" id="answer" placeholder="___" autocomplete="off">
-    <button onclick="checkAnswer()">提 交 记 录</button>
-    <div class="error" id="error">频率错误，请重新记录。</div>
+    <label>输入今天的频率</label>
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">线索：去B站/小红书搜「第七观测站档案室」</p >
+    <input type="text" id="answer1" placeholder="___" autocomplete="off">
+    <button onclick="checkAnswer1()">提 交 记 录</button>
+    <div class="error" id="error1">频率错误，请重新记录。</div>
   </div>
-  
 </div>
 
-<!-- 这里是解锁提示层 -->
-<div class="container hidden" id="unlocked">
-  <div class="unlocked">
-    <h2>档案 002 已解锁</h2>
-    <p>建站合影（1970）</p >
-    <p style="font-size:12px;color:#6b5b45;margin-top:20px;">正在跳转……</p >
+<!-- 第二页：1978年7月8日 -->
+<div class="container page hidden" id="page2">
+  <h1>档案 001 · 观测日志（二）</h1>
+  <div class="subtitle">1978年7月8日 星期六 多云 云量5</div>
+
+  <div class="log">
+    <p>今天老陈找我谈话。</p >
+    <p>他问我最近有没有记录什么“不该记的东西”。我说没有。</p >
+    <p>他看着我的眼睛，看了很久，然后说：“上面不让写。”</p >
+    <p>我说哪个上面。他说：“<span class="clickable" onclick="toggle('h2_1')">不是省局</span>。”</p >
+    <div class="hidden-text" id="h2_1">不是省局。那是什么？他转身走了，没有回答。</div>
+    <p>我问他那是什么。他转身走了。</p >
+    <p>晚上林雪来值班室借墨水，我随口问她有没有听过89.7。</p >
+    <p>她手抖了一下，墨水洒在桌子上。她说没有。</p >
+    <p>她在撒谎。</p >
+    <p>老陈走后，我在值班室抽屉里发现一张纸条，上面写着：</p >
+    <p style="color:#8b7355;">“第七观测站，代号S7。收到89.7频率时，执行以下指令……”</p >
+    <p>下面被撕掉了。</p >
+    <div class="signature">—— 周德明</div>
+  </div>
+
+  <div class="input-area">
+    <label>输入“上面”指的是谁？</label>
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">提示：不是省局，那是什么？</p >
+    <input type="text" id="answer2" placeholder="___" autocomplete="off">
+    <button onclick="checkAnswer2()">提 交 记 录</button>
+    <div class="error" id="error2">答案错误，请重新记录。</div>
+  </div>
+</div>
+
+<!-- 第三页：1978年7月9日 -->
+<div class="container page hidden" id="page3">
+  <h1>档案 001 · 观测日志（三）</h1>
+  <div class="subtitle">1978年7月9日 星期日 阴 云量7</div>
+
+  <div class="log">
+    <p>今天我问了林雪。</p >
+    <p>她说她也听到了。从1975年开始，每个月都听到。但她从来没敢记录。</p >
+    <p>我问她为什么。她说：“你画一张云图就知道了。”</p >
+    <p>她给了我一张她画的云图。图上标注“云量6层”，但我数了数，明明有7层。</p >
+    <p>第7层几乎透明，我用放大镜才看清。里面有一个模糊的人形。</p >
+    <p>林雪说：“你看到了？我画了三年，才敢确定那是一个人。”</p >
+    <p>我问她那是谁。她说：“你再仔细看看。”</p >
+    <p>我把云图翻过来，背面写着八个名字。</p >
+    <p>第一个是周德明。第二个是林雪。第三个是老陈。</p >
+    <p>八个名字。我们站里一共八个人。</p >
+    <div class="signature">—— 周德明</div>
+  </div>
+
+  <div class="input-area">
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">林雪的云图藏在B站/小红书「第七观测站档案室」，去找找看。</p >
+    <button onclick="window.location.href='./archive002.html'">去 B 站</button>
   </div>
 </div>
 
 <script>
-function checkAnswer() {
-  var input = document.getElementById('answer');
-  var val = input.value.trim().toUpperCase(); // 忽略大小写
-  var error = document.getElementById('error');
-  var main = document.getElementById('main');
-  var unlocked = document.getElementById('unlocked');
+function openLog() {
+  document.getElementById('coverPage').classList.add('hidden');
+  document.getElementById('page1').classList.remove('hidden');
+}
 
-  // ================= 检查是否被锁定 =================
-  var lockUntil = localStorage.getItem('station7_001_lockUntil');
-  if (lockUntil && Date.now() < parseInt(lockUntil)) {
-    var remainMs = parseInt(lockUntil) - Date.now();
-    var remainHours = Math.ceil(remainMs / (1000 * 60 * 60));
-    error.innerText = '档案已锁定，请 ' + remainHours + ' 小时后再试。';
+function toggle(id) {
+  var el = document.getElementById(id);
+  if (el.style.display === 'block') {
+    el.style.display = 'none';
+  } else {
+    el.style.display = 'block';
+  }
+}
+
+function checkAnswer1() {
+  var input = document.getElementById('answer1');
+  var val = input.value.trim();
+  var error = document.getElementById('error1');
+
+  if (val === '89.7' || val === '897' || val === '89.7HZ') {
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.remove('hidden');
+    localStorage.setItem('station7_001_page', '2');
+  } else if (val === 'ZBG') {
+    error.innerText = '这是密文，还没解密呢。密码和密钥都是三个字母，密钥用 STA。';
     error.style.display = 'block';
     input.classList.add('shake');
     setTimeout(function() { input.classList.remove('shake'); }, 400);
-    return; // 被锁定时，直接结束，不再执行下面的逻辑
-  }
-  // ================= 锁定检查结束 =================
-
-  if (val === '89.7' || val === '897' || val === '89.7HZ') {
-    // 真答案，正确跳转
-    main.classList.add('hidden');
-    unlocked.classList.remove('hidden');
-    localStorage.setItem('station_progress', '002');
-    
-    // 答对后，清除错误记录和锁定状态
-    localStorage.removeItem('station7_001_attempts');
-    localStorage.removeItem('station7_001_lockUntil');
-
-    setTimeout(function() {
-      window.location.href = './archive002.html';
-    }, 2000);
   } else {
-    // 错误处理（包括输入 ZBG 和其他错误）
-    var attempts = parseInt(localStorage.getItem('station7_001_attempts') || '0') + 1;
-    localStorage.setItem('station7_001_attempts', attempts);
-
-    if (attempts >= 2) {
-      // 错2次，锁定24小时
-      var lockTime = Date.now() + 24 * 60 * 60 * 1000;
-      localStorage.setItem('station7_001_lockUntil', lockTime);
-      error.innerText = '错误次数过多，档案已锁定 24 小时。';
-    } else {
-      // 只错1次，给出提示并警告
-      if (val === 'ZBG') {
-        // 保留你的密文提示
-        error.innerText = '这是密文，还没解密呢。密码和密钥都是三个字母，密钥用 STA。（警告：再错一次，档案将锁定 24 小时。）';
-      } else {
-        error.innerText = '频率错误，请重新记录。（警告：再错一次，档案将锁定 24 小时。）';
-      }
-    }
-    
+    error.innerText = '频率错误，请重新记录。';
     error.style.display = 'block';
     input.classList.add('shake');
     setTimeout(function() { input.classList.remove('shake'); }, 400);
   }
 }
 
-// 回车提交
-document.getElementById('answer').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    checkAnswer();
+function checkAnswer2() {
+  var input = document.getElementById('answer2');
+  var val = input.value.trim();
+  var error = document.getElementById('error2');
+
+  if (val === '更高级别' || val === '更上面' || val === '国家' || val === '军方' || val === '总部' || val === '更高级') {
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('page3').classList.remove('hidden');
+    localStorage.setItem('station7_001_page', '3');
+  } else {
+    error.innerText = '不对。不是省局，想想比省局更大的。';
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
   }
+}
+
+// 如果之前解锁过，恢复进度
+window.onload = function() {
+  var page = localStorage.getItem('station7_001_page');
+  if (page === '2') {
+    document.getElementById('coverPage').classList.add('hidden');
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.remove('hidden');
+  } else if (page === '3') {
+    document.getElementById('coverPage').classList.add('hidden');
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('page3').classList.remove('hidden');
+  }
+};
+
+document.getElementById('answer1').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { checkAnswer1(); }
+});
+document.getElementById('answer2').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { checkAnswer2(); }
 });
 </script>
 
