@@ -8,67 +8,183 @@
   body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
   .container { max-width: 600px; width: 90%; background: url('paper.jpg') center/cover; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); position: relative; }
   .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); border-radius: 4px; pointer-events: none; }
-  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 20px; text-align: center; position: relative; z-index: 1; }
-  .rule-list { font-size: 14px; line-height: 2.2; color: #c4b59a; margin-bottom: 30px; padding-left: 20px; position: relative; z-index: 1; }
-  .rule-list p { margin: 0 0 10px 0; cursor: pointer; transition: all 0.3s; }
-  .rule-list p:hover { background: #3a3025; }
-  .rule-7 { font-family: 'KaiTi', '楷体', serif; color: #8b7355; font-style: italic; } /* 第七条字体不一样 */
-  .tip { font-size: 13px; color: #8b7355; margin-top: 20px; text-align: center; letter-spacing: 2px; position: relative; z-index: 1; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 4px; position: relative; z-index: 1; }
+  .subtitle { font-size: 12px; color: #6b5b45; margin-bottom: 20px; letter-spacing: 2px; position: relative; z-index: 1; }
+
+  .rule-list { font-size: 14px; line-height: 2.2; color: #c4b59a; margin-bottom: 20px; position: relative; z-index: 1; }
+  .rule-item { padding: 8px 12px; margin-bottom: 6px; cursor: pointer; border: 1px solid transparent; border-radius: 3px; transition: all 0.3s; }
+  .rule-item:hover { background: #3a3025; border-color: #3a3025; }
+  .rule-item.normal { font-family: 'Courier New', monospace; }
+  .rule-item.added { font-family: 'KaiTi', '楷体', serif; font-style: italic; }
+  .rule-item.marked { border-color: #8b7355; background: #2a2015; }
+  .rule-item.wrong { border-color: #8b3a3a; }
+
+  .progress-box { font-size: 13px; color: #6b5b45; text-align: center; margin-bottom: 20px; position: relative; z-index: 1; }
+  .progress-box .found { color: #8b7355; }
+
+  .input-area { position: relative; z-index: 1; margin-top: 20px; border-top: 1px solid #3a3025; padding-top: 20px; }
+  .input-area label { display: block; font-size: 13px; color: #8b7355; margin-bottom: 12px; letter-spacing: 2px; }
+  input[type="text"] { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid #3a3025; color: #d4c5a9; font-family: 'Courier New', monospace; font-size: 16px; letter-spacing: 2px; outline: none; box-sizing: border-box; }
+  input[type="text"]:focus { border-color: #8b7355; }
+  button { margin-top: 12px; padding: 12px 32px; background: transparent; border: 1px solid #8b7355; color: #8b7355; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 4px; cursor: pointer; transition: all 0.3s; width: 100%; }
+  button:hover { background: #8b7355; color: #1a1a1a; }
+  .error { color: #8b3a3a; font-size: 13px; margin-top: 12px; display: none; letter-spacing: 2px; }
   .hidden { display: none; }
   .unlocked { text-align: center; padding: 40px 0; position: relative; z-index: 1; }
   .unlocked h2 { color: #8b7355; font-size: 16px; letter-spacing: 4px; margin-bottom: 20px; }
+  .shake { animation: shake 0.4s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+  .page { position: relative; z-index: 1; }
+  .seal-box { position: relative; z-index: 1; background: #222; border: 1px solid #8b7355; padding: 20px; border-radius: 4px; margin: 20px 0; }
+  .seal-box p { font-size: 14px; line-height: 2; color: #c4b59a; }
+  .seal-box .key { color: #8b7355; font-weight: bold; }
+  .drag-hint { font-size: 12px; color: #6b5b45; text-align: center; margin-top: 10px; }
+  .cursor-drag { cursor: grab; }
 </style>
 </head>
 <body>
 
-<div class="container" id="main">
-  <h1>档案 004 · 观测守则（手抄）</h1>
-  
-  <div class="rule-list">
-    <p onclick="wrongClick()">一、每日06:00、14:00、22:00准时观测。</p >
-    <p onclick="wrongClick()">二、云量超过9成时，不要直视窗外。</p >
-    <p onclick="wrongClick()">三、如果风速仪显示0，请立即离开观测室。</p >
-    <p onclick="wrongClick()">四、收到89.7频率时，记录，不要回应。</p >
-    <p onclick="wrongClick()">五、如果听见有人叫你的名字，不要答应。</p >
-    <p onclick="wrongClick()">六、每日记录必须手写。</p >
-    <p class="rule-7" onclick="correctClick()">七、1998年7月12日之后，不要相信任何显示“晴”的记录。</p >
+<!-- 第一页：找出改过的守则 -->
+<div class="container page" id="page1">
+  <h1>档案 004 · 观测守则</h1>
+  <div class="subtitle">手抄版 · 1970年制定</div>
+
+  <p style="font-size:14px;color:#c4b59a;position:relative;z-index:1;">这份守则被修改过。找出所有后来加上去的条目。</p >
+  <p style="font-size:12px;color:#6b5b45;position:relative;z-index:1;">点击你认为“字迹不同”的条目。找到3条即可。</p >
+
+  <div class="rule-list" id="ruleList">
+    <div class="rule-item normal" onclick="markRule(this, false)">一、每日06:00、14:00、22:00准时观测。</div>
+    <div class="rule-item normal" onclick="markRule(this, false)">二、云量超过9成时，不要直视窗外。</div>
+    <div class="rule-item normal" onclick="markRule(this, false)">三、如果风速仪显示0，请立即离开观测室。</div>
+    <div class="rule-item normal" onclick="markRule(this, false)">四、收到89.7频率时，记录，不要回应。</div>
+    <div class="rule-item normal" onclick="markRule(this, false)">五、如果听见有人叫你的名字，不要答应。</div>
+    <div class="rule-item normal" onclick="markRule(this, false)">六、每日记录必须手写。</div>
+    <div class="rule-item added" onclick="markRule(this, true, 'added1')">七、1998年7月12日之后，不要相信任何显示“晴”的记录。</div>
+    <div class="rule-item added" onclick="markRule(this, true, 'added2')">八、禁止单独进入第七层。</div>
+    <div class="rule-item added" onclick="markRule(this, true, 'added3')">九、如果看到云层里有人形，数一数有几个人。</div>
+    <div class="rule-item normal" onclick="markRule(this, false)">十、<span style="color:#3a3025;">（被烧掉了，只剩一个角）</span></div>
   </div>
 
-  <div class="tip" id="tip">提示：仔细看看第七条，字迹和前面不一样。</div>
+  <div class="progress-box" id="progressBox">已标记 <span class="found" id="foundCount">0</span> / 3 条后加的守则</div>
+
+  <div class="input-area hidden" id="inputArea">
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">你找到了三条后加的守则。第七条背面还有一行字，被胶水粘住了。</p >
+    <button onclick="peelSeventh()">撕 开 第 七 条</button>
+  </div>
 </div>
 
-<div class="container hidden" id="unlocked">
+<!-- 第二页：撕开第七条 -->
+<div class="container page hidden" id="page2">
+  <div class="seal-box">
+    <h1>第七条 · 背面</h1>
+    <p>你撕开粘住的纸，背面写着一行小字：</p >
+    <p class="key" style="font-size:18px;text-align:center;margin:20px 0;">“89.7不是频率。是日期。”</p >
+    <p>结合你在档案001、002、003中找到的所有线索，推算出这个日期。</p >
+  </div>
+
+  <div class="input-area">
+    <label>输入日期（格式：年年年年.月.日）</label>
+    <input type="text" id="answerDate" placeholder="____.__.__" autocomplete="off">
+    <button onclick="checkDate()">提 交 记 录</button>
+    <div class="error" id="errorDate">日期错误，请重新记录。</div>
+  </div>
+</div>
+
+<!-- 第三页：第十条 -->
+<div class="container page hidden" id="page3">
+  <div class="seal-box">
+    <h1>第十条 · 被烧掉的下面一层</h1>
+    <p>你输入日期正确，守则第十条被烧掉的表面脱落，露出下面一层：</p >
+    <p class="key" style="font-size:16px;text-align:center;margin:20px 0;">十、如果以上所有守则都失效，请立即前往第七层。</p >
+    <p class="key" style="font-size:16px;text-align:center;">第七层入口：观测塔顶部。</p >
+    <p class="key" style="font-size:16px;text-align:center;">进入条件：带上你的日志。</p >
+    <hr style="border-color:#3a3025;margin:20px 0;">
+    <p>你翻到守则最后一页，背面写着：</p >
+    <p style="color:#8b7355;">“1998年7月12日，全员集合。第七层，不见不散。”</p >
+    <p style="text-align:right;color:#8b7355;">—— 老陈</p >
+  </div>
+
+  <div class="input-area">
+    <p style="font-size:13px;color:#8b7355;margin-bottom:12px;">你合上守则。有些事，终于连起来了。</p >
+    <button onclick="window.location.href='./archive005.html'">翻 到 下 一 页</button>
+  </div>
+</div>
+
+<!-- 解锁页 -->
+<div class="container page hidden" id="unlocked">
   <div class="unlocked">
     <h2>档案 005 已解锁</h2>
-    <p>最后一封电报（1998）</p >
+    <p>最后一封电报</p >
     <p style="font-size:12px;color:#6b5b45;margin-top:20px;">正在跳转……</p >
   </div>
 </div>
 
 <script>
-function wrongClick() {
-  var tip = document.getElementById('tip');
-  tip.innerText = '这只是普通的守则。看看第七条。';
-  tip.style.color = '#8b3a3a';
-  setTimeout(function(){ tip.innerText = '提示：仔细看看第七条，字迹和前面不一样。'; tip.style.color = '#8b7355'; }, 2000);
+var foundRules = 0;
+var addedIds = [];
+
+function markRule(el, isAdded, id) {
+  // 如果已经标记过，取消标记
+  if (el.classList.contains('marked')) {
+    el.classList.remove('marked');
+    if (isAdded) {
+      foundRules--;
+      var idx = addedIds.indexOf(id);
+      if (idx > -1) addedIds.splice(idx, 1);
+    }
+    updateProgress();
+    return;
+  }
+
+  el.classList.add('marked');
+
+  if (isAdded) {
+    foundRules++;
+    addedIds.push(id);
+    updateProgress();
+  } else {
+    // 标记错了，短暂显示红色
+    el.classList.add('wrong');
+    setTimeout(function() {
+      el.classList.remove('wrong');
+      el.classList.remove('marked');
+    }, 800);
+  }
 }
 
-function correctClick() {
-  var main = document.getElementById('main');
-  var unlocked = document.getElementById('unlocked');
-  var tip = document.getElementById('tip');
-
-  tip.innerText = '你翻开第七条背面，上面写着：“89.7不是频率，是日期。”';
-  tip.style.color = '#8b7355';
-
-  main.classList.add('hidden');
-  unlocked.classList.remove('hidden');
-  
-  // 等待3秒后，自动跳转到档案005
-  setTimeout(function() {
-    window.location.href = './archive005.html';
-  }, 3000);
+function updateProgress() {
+  document.getElementById('foundCount').innerText = foundRules;
+  if (foundRules >= 3) {
+    document.getElementById('inputArea').classList.remove('hidden');
+  } else {
+    document.getElementById('inputArea').classList.add('hidden');
+  }
 }
+
+function peelSeventh() {
+  document.getElementById('page1').classList.add('hidden');
+  document.getElementById('page2').classList.remove('hidden');
+}
+
+function checkDate() {
+  var input = document.getElementById('answerDate');
+  var val = input.value.trim();
+  var error = document.getElementById('errorDate');
+
+  if (val === '1998.7.12' || val === '1998.07.12' || val === '1998-7-12' || val === '1998-07-12') {
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('page3').classList.remove('hidden');
+  } else {
+    error.innerText = '日期错误。提示：89.7 → 89年7月？还是1998年7月？';
+    error.style.display = 'block';
+    input.classList.add('shake');
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+  }
+}
+
+document.getElementById('answerDate').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { checkDate(); }
+});
 </script>
 
 </body>
