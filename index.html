@@ -190,6 +190,17 @@ function checkAnswer() {
     // 正确
     main.classList.add('hidden');
     unlocked.classList.remove('hidden');
+    // 记录进度
+    localStorage.setItem('station_progress', '002');
+    
+    // 等待2秒后，自动跳转到档案002
+    setTimeout(function() {
+      window.location.href = './archive002.html';
+    }, 2000);
+  } else {
+    // 正确
+    main.classList.add('hidden');
+    unlocked.classList.remove('hidden');
     // 播放解锁音效
     // new Audio('unlock.mp3').play();
     // 记录进度到localStorage
