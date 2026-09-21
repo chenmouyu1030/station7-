@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第七观测站 · 档案003</title>
+<style>
+  body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
+  .container { max-width: 600px; width: 90%; background: #2a2a2a; padding: 40px; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.8); text-align: center; }
+  h1 { font-size: 18px; letter-spacing: 4px; color: #8b7355; margin-bottom: 20px; }
+  .cloud-area { position: relative; width: 100%; height: 300px; background: #222; display: flex; flex-direction: column; justify-content: space-around; padding: 20px 0; border: 1px dashed #555; margin-bottom: 30px; }
+  .cloud-layer { width: 80%; height: 25px; background: #444; border-radius: 50%; margin: 0 auto; cursor: pointer; transition: all 0.3s; }
+  .cloud-layer:hover { background: #666; }
+  .layer-1 { opacity: 0.3; }
+  .layer-2 { opacity: 0.4; }
+  .layer-3 { opacity: 0.5; }
+  .layer-4 { opacity: 0.6; }
+  .layer-5 { opacity: 0.7; }
+  .layer-6 { opacity: 0.8; }
+  .layer-7 { opacity: 0.1; background: #8b7355; } /* 隐藏的第7层 */
+  .tip { font-size: 13px; color: #8b7355; margin-top: 20px; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>档案 003 · 云图照片</h1>
+  <p>1985年，第七观测站上空。</p >
+  <p>标注写着：“云量 6 层。”</p >
+  <p>但你数了数，照片里似乎不止 6 层。</p >
+  
+  <div class="cloud-area">
+    <div class="cloud-layer layer-1" onclick="wrongClick()"></div>
+    <div class="cloud-layer layer-2" onclick="wrongClick()"></div>
+    <div class="cloud-layer layer-3" onclick="wrongClick()"></div>
+    <div class="cloud-layer layer-4" onclick="wrongClick()"></div>
+    <div class="cloud-layer layer-5" onclick="wrongClick()"></div>
+    <div class="cloud-layer layer-6" onclick="wrongClick()"></div>
+    <!-- 隐藏的第7层 -->
+    <div class="cloud-layer layer-7" onclick="correctClick()"></div>
+  </div>
+
+  <p style="font-size: 14px; color: #c4b59a;">点击最上面那层几乎透明的云。</p >
+  <div class="tip" id="tip">提示：仔细数，一共7层。</div>
+</div>
+
+<script>
+function wrongClick() {
+  var tip = document.getElementById('tip');
+  tip.innerText = '这只是普通的云层。再往上看看。';
+  tip.style.color = '#8b3a3a';
+  setTimeout(function(){ tip.innerText = '提示：仔细数，一共7层。'; tip.style.color = '#8b7355'; }, 2000);
+}
+function correctClick() {
+  var tip = document.getElementById('tip');
+  tip.innerText = '你看到了……云层里有一个模糊的人影。档案004 正在整理中……';
+  tip.style.color = '#8b7355';
+  
+  // 等待3秒后跳转到档案004（可提前写好）
+  setTimeout(function() {
+    // window.location.href = './archive004.html'; 
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
