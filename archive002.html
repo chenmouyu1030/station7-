@@ -51,7 +51,11 @@ function correctClick() {
   var tip = document.getElementById('tip');
   tip.innerText = '档案003 正在整理中……';
   tip.style.color = '#8b7355';
-  // 后续可以在这里加跳转到 archive003.html 的代码
+  
+  // 等待2秒后，自动跳转到档案003
+  setTimeout(function() {
+    window.location.href = './archive003.html';
+  }, 2000);
 }
 </script>
 
