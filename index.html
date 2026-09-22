@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <title>第七观测站 · 档案001</title>
 <style>
   body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #d4c5a9; }
@@ -156,7 +157,14 @@ function checkAnswer1() {
   var val = input.value.trim().toUpperCase();
   var error = document.getElementById('error1');
 
-  if (val === '89.7' || val === '897' || val === '89.7HZ') {
+  // 容错：统一写法
+  if (val === '897' || val === '89.7HZ') val = '89.7';
+
+  // 哈希比对
+  var hash = CryptoJS.SHA256(val).toString();
+  var answerHash = 'c8f14822c8241e5fe653cff5dcac714d0fa769648bd24a5ee08b0e94b0032bcb';
+
+  if (hash === answerHash) {
     document.getElementById('page1').classList.add('hidden');
     document.getElementById('page2').classList.remove('hidden');
     localStorage.setItem('station7_001_page', '2');
@@ -178,7 +186,17 @@ function checkAnswer2() {
   var val = input.value.trim();
   var error = document.getElementById('error2');
 
-  if (val === '更高级别' || val === '更上面' || val === '国家' || val === '军方' || val === '总部' || val === '更高级') {
+  var hash = CryptoJS.SHA256(val).toString();
+  var correctHashes = [
+    'afa887843d1e1c9cc5290097b6b85a9fdfda3b45979262ba9ae3741993dd02ca',
+    'cfe1719ee944d7facc9a6a589dd00dccb5aa83a3eb25e5f5381d9d7773a32121',
+    '0cc659a9f57c24934d08e517f1aeadfd4908ca355759523dc513d2b901ff3f40',
+    'aa246f9a064d87dfda3cff12baf06209f10cda5abbb628a5dbd9c41219296372',
+    '740935028f435ffa29da5059d34398a671f825d3b47b12a9874f49911e9a5f66',
+    'f261121cf0243f170c69e1b5e26e671e55b569d1572904e30601ce6ec951583e'
+  ];
+
+  if (correctHashes.indexOf(hash) > -1) {
     document.getElementById('page2').classList.add('hidden');
     document.getElementById('page3').classList.remove('hidden');
     localStorage.setItem('station7_001_page', '3');
@@ -189,7 +207,6 @@ function checkAnswer2() {
     setTimeout(function() { input.classList.remove('shake'); }, 400);
   }
 }
-
 // 恢复进度
 window.onload = function() {
   var page = localStorage.getItem('station7_001_page');
